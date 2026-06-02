@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  
+
   /* ==========================================
      NAVBAR & SCROLL EFFECTS
      ========================================== */
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuToggleBtn = document.getElementById("menu-toggle-btn");
   const navLinks = document.querySelectorAll(".nav-link");
   const backToTopBtn = document.getElementById("btn-back-to-top");
-  
+
   // Scrolled Header Style & Back to Top Visibility
   window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       backToTopBtn.classList.remove("active");
     }
-    
+
     // Scroll Spy (Highlight active link)
     let currentSection = "";
     const scrollPos = window.scrollY + 120; // Offset for navbar height
-    
+
     document.querySelectorAll("section").forEach(section => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.offsetHeight;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currentSection = section.getAttribute("id");
       }
     });
-    
+
     navLinks.forEach(link => {
       link.classList.remove("active");
       if (link.getAttribute("href") === `#${currentSection}`) {
@@ -68,14 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
      ========================================== */
   const tabButtons = document.querySelectorAll(".tab-btn");
   const tabContents = document.querySelectorAll(".tab-content");
-  
+
   tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const targetTab = btn.getAttribute("data-tab");
-      
+
       tabButtons.forEach(b => b.classList.remove("active"));
       tabContents.forEach(c => c.classList.remove("active"));
-      
+
       btn.classList.add("active");
       document.getElementById(targetTab).classList.add("active");
     });
@@ -89,14 +89,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnShowTimeline = document.getElementById("btn-show-timeline");
   const panelMap = document.getElementById("panel-map");
   const panelTimeline = document.getElementById("panel-timeline");
-  
+
   btnShowMap.addEventListener("click", () => {
     btnShowMap.className = "btn btn-primary";
     btnShowTimeline.className = "btn btn-secondary";
     panelMap.classList.add("active");
     panelTimeline.classList.remove("active");
   });
-  
+
   btnShowTimeline.addEventListener("click", () => {
     btnShowMap.className = "btn btn-secondary";
     btnShowTimeline.className = "btn btn-primary";
@@ -186,11 +186,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <p style="color:#fff; font-weight:600; margin-bottom: 3px;">${loc.city}</p>
         <p>${loc.desc.substring(0, 85)}...</p>
       `;
-      
+
       mapCard.addEventListener("click", () => {
         focusOnLocation(loc, mapCard);
       });
-      
+
       sidebarList.appendChild(mapCard);
 
       // Create Custom Marker Icon style via CSS class
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Add Leaflet Marker
       const marker = L.marker(loc.coords, { icon: customIcon }).addTo(map);
-      
+
       // Popup HTML content
       const popupContent = `
         <div style="padding: 5px;">
@@ -212,9 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
           <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.45;">${loc.desc}</p>
         </div>
       `;
-      
+
       marker.bindPopup(popupContent, { maxWidth: 260 });
-      
+
       // Handle marker click (sync with sidebar)
       marker.on("click", () => {
         document.querySelectorAll(".map-card").forEach(c => c.classList.remove("active"));
@@ -236,10 +236,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function focusOnLocation(loc, cardElement, initialLoad = false) {
     document.querySelectorAll(".map-card").forEach(c => c.classList.remove("active"));
     cardElement.classList.add("active");
-    
+
     // Zoom and pan map
     map.setView(loc.coords, 5);
-    
+
     // Open corresponding marker popup
     const target = markersGroup.find(m => m.id === loc.id);
     if (target) {
@@ -271,23 +271,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!dateString) return "";
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return "";
-    
+
     const months = [
       "Januari", "Februari", "Maret", "April", "Mei", "Juni",
       "Juli", "Agustus", "September", "Oktober", "November", "Desember"
     ];
-    
+
     const day = date.getDate();
     const month = months[date.getMonth()];
     const year = date.getFullYear();
-    
+
     return `${day} ${month} ${year}`;
   }
-  
+
   const modalStageForm = document.getElementById("modal-stage-form");
   const modalStageSuccess = document.getElementById("modal-stage-success");
   const successWelcomeMessage = document.getElementById("success-welcome-message");
-  
+
   const btnGoQuiz = document.getElementById("btn-go-quiz");
   const btnModalBackHome = document.getElementById("btn-modal-back-home");
   const btnModalLogout = document.getElementById("btn-modal-logout");
@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", () => {
       modalStageSuccess.classList.remove("active");
       studentNameInput.value = "";
       if (studentDobInput) studentDobInput.value = "";
-      
+
       // Reset avatar selection to male
       avatarOptions.forEach((opt) => opt.classList.remove("active"));
       const maleOpt = document.getElementById("avatar-option-male");
@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Update welcome message
       successWelcomeMessage.innerHTML = `Selamat belajar, <strong>${currentStudentName}</strong>!<br><span style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 5px;"><i class="fa-solid fa-cake-candles" style="margin-right: 5px; color: var(--accent-gold);"></i>Lahir: ${formattedDob}</span>`;
-      
+
       // Update Dropdown Details
       dropdownStudentName.innerText = currentStudentName;
       const dropdownStudentDob = document.getElementById("dropdown-student-dob");
@@ -608,7 +608,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnCloseReward = document.getElementById("btn-close-reward");
   const btnRewardBackHome = document.getElementById("btn-reward-back-home");
   const boardingPassCard = document.getElementById("boarding-pass-card");
-  
+
   const rewardStageSelection = document.getElementById("reward-stage-selection");
   const rewardStageTicket = document.getElementById("reward-stage-ticket");
   const btnChangeRegion = document.getElementById("btn-change-region");
@@ -693,7 +693,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Acak data seat eksekutif
     const seats = ["02A", "05B", "08D", "09F", "11K", "14A", "18C"];
     const randomSeat = seats[Math.floor(Math.random() * seats.length)];
-    
+
     // Format tanggal hari ini
     const options = { day: 'numeric', month: 'short', year: 'numeric' };
     const todayStr = new Date().toLocaleDateString('id-ID', options);
@@ -801,24 +801,24 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  window.selectFlightCountry = function(countryName) {
+  window.selectFlightCountry = function (countryName) {
     const ticket = flightTicketsData.find(t => t.country === countryName);
     if (!ticket) return;
-    
+
     activeTicket = ticket; // Set active ticket reference
     renderFlightTicket(ticket);
-    
+
     // Switch stages inside modal
     if (rewardStageSelection && rewardStageTicket) {
       rewardStageSelection.classList.remove("active");
       rewardStageSelection.style.display = "none";
-      
+
       rewardStageTicket.style.display = "block";
       setTimeout(() => {
         rewardStageTicket.classList.add("active");
       }, 50);
     }
-    
+
     showToast(`Tiket Kelas Eksekutif ke ${ticket.country} ${ticket.flag} Terbit! ✈️🎟️`, "success");
   };
 
@@ -837,14 +837,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function loadQuestion() {
     isAnswered = false;
     btnNextQuestion.style.display = "none";
-    
+
     // Update Progress Bar
     const percent = (currentQuestionIndex / quizQuestions.length) * 100;
     quizProgressFill.style.width = `${percent}%`;
-    
+
     const qData = quizQuestions[currentQuestionIndex];
     quizQuestionText.innerHTML = `<span style="color:var(--primary); font-weight:700;">Pertanyaan ${currentQuestionIndex + 1} dari ${quizQuestions.length}:</span><br>${qData.q}`;
-    
+
     // Render options
     quizOptionsContainer.innerHTML = "";
     qData.options.forEach((opt, idx) => {
@@ -896,10 +896,10 @@ document.addEventListener("DOMContentLoaded", () => {
       quizBox.style.display = "none";
       btnNextQuestion.style.display = "none";
       quizResultBox.style.display = "block";
-      
+
       // Update score display
       quizScoreVal.innerText = `${quizScore}/100`;
-      
+
       // Custom message based on score
       if (quizScore === 100) {
         quizResultDesc.innerHTML = `Luar biasa, <strong>${currentStudentName}</strong>! Semua jawaban Anda benar. Anda memahami materi Kerja Sama Antar Negara dengan sempurna.`;
@@ -935,11 +935,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (rewardStageSelection && rewardStageTicket) {
         rewardStageTicket.classList.remove("active");
         rewardStageTicket.style.display = "none";
-        
+
         rewardStageSelection.style.display = "block";
         rewardStageSelection.classList.add("active");
       }
-      
+
       if (rewardModalOverlay) {
         rewardModalOverlay.classList.add("active");
         showToast("Hadiah Spesial Kuis Dibuka! Silakan pilih destinasi Anda. 🌍", "success");
@@ -953,11 +953,11 @@ document.addEventListener("DOMContentLoaded", () => {
       if (rewardStageSelection && rewardStageTicket) {
         // Transition fade out
         rewardStageTicket.classList.remove("active");
-        
+
         setTimeout(() => {
           rewardStageTicket.style.display = "none";
           rewardStageSelection.style.display = "block";
-          
+
           setTimeout(() => {
             rewardStageSelection.classList.add("active");
             showToast("Silakan pilih region destinasi baru Anda! 🗺️", "info");
@@ -993,5 +993,301 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  /* ==========================================
+     GALERI DIPLOMASI RI - INTERAKTIF
+     ========================================== */
+
+  // Data foto: narasi dan metadata setiap presiden
+  const galleryData = {
+    sukarno: {
+      tag: "Era Sukarno",
+      title: "Kunjungan Diplomasi Sukarno ke Amerika Serikat",
+      meta: "1961 | Washington D.C., Amerika Serikat",
+      img: "https://derapjuang.id/wp-content/uploads/2024/07/WhatsApp-Image-2024-07-06-at-20.49.00.jpeg",
+      desc: "Presiden RI pertama, Sukarno, bertemu dengan Presiden AS John F. Kennedy. Pertemuan ini membahas penguatan hubungan bilateral, posisi Indonesia dalam Gerakan Non-Blok, serta dukungan internasional terhadap kedaulatan Indonesia di panggung dunia."
+    },
+    suharto: {
+      tag: "Era Suharto",
+      title: "Kerja Sama Ekonomi RI - Amerika Serikat",
+      meta: "1982 | Washington D.C., Amerika Serikat",
+      img: "https://lembagaindonesiationgkok.org/img/posts/article/20211102092705lt1pr.png",
+      desc: "Presiden Suharto mengadakan pertemuan resmi dengan Presiden AS Ronald Reagan di Gedung Putih. Diplomasi ini memfokuskan pembicaraan pada stabilitas ekonomi kawasan Asia Tenggara, investasi asing, dan penguatan kemitraan strategis perdagangan."
+    },
+    habibie: {
+      tag: "Era B.J. Habibie",
+      title: "Diplomasi Pemulihan Ekonomi Pascakrisis",
+      meta: "1998 | Jakarta, Indonesia",
+      img: "https://asset.kompas.com/crops/ZzHlsAqYEWWE4wi-aybS9uceGxQ=/115x0:842x485/750x500/data/photo/2022/02/12/6207b176a2694.jpg",
+      desc: "Presiden B.J. Habibie bertemu dengan Direktur Pelaksana IMF, Michel Camdessus. Pertemuan krusial ini menandai langkah diplomasi ekonomi makro Indonesia dalam melaksanakan reformasi struktural finansial pascakrisis moneter melanda Asia tahun 1997."
+    },
+    gusdur: {
+      tag: "Era Gus Dur",
+      title: "Kunjungan Kehormatan Hubungan Multilateral",
+      meta: "1999 | Washington D.C., Amerika Serikat",
+      img: "https://gusdur.net/wp-content/uploads/2025/06/Pidato-Presiden.jpg",
+      desc: "Presiden Abdurrahman Wahid (Gus Dur) melakukan pertemuan hangat dengan Presiden Bill Clinton. Diplomasi ini sukses memperkuat pengakuan kedaulatan internasional atas proses transisi demokrasi baru Indonesia serta bantuan finansial internasional."
+    },
+    megawati: {
+      tag: "Era Megawati",
+      title: "Perjanjian Dagang & Energi RI - Rusia",
+      meta: "2003 | Moskwa, Rusia",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbUDqeTfW6_2pxIen5VJSmzNA2z7IIvWKGhg&s",
+      desc: "Presiden Megawati Soekarnoputri berjabat tangan dengan Presiden Rusia Vladimir Putin. Pertemuan bilateral di Istana Kremlin ini membuahkan kerja sama pengadaan alutsista strategis TNI serta ekspansi kemitraan di sektor energi dan pertambangan."
+    },
+    sby: {
+      tag: "Era SBY",
+      title: "Kemitraan Komprehensif RI - Amerika Serikat",
+      meta: "2010 | Jakarta, Indonesia",
+      img: "https://gdb.voanews.com/acc34c98-137a-409e-9c4c-044528625429_cx0_cy1_cw0_w408_r1_s.jpg",
+      desc: "Presiden Susilo Bambang Yudhoyono menyambut Presiden AS Barack Obama di Istana Merdeka. Keduanya menandatangani 'RI-US Comprehensive Partnership' yang mencakup investasi masif di sektor pendidikan, isu perubahan iklim global, dan keamanan pangan regional."
+    },
+    jokowi: {
+      tag: "Era Jokowi",
+      title: "Diplomasi Ekonomi di KTT G20 Bali",
+      meta: "2022 | Bali, Indonesia",
+      img: "https://www.theindonesianinstitute.com/wp-content/uploads/2022/12/KTT-G20-Diplomasi-Jokowi-Diapresiasi-Dunia.jpg",
+      desc: "Presiden Joko Widodo mengadakan pertemuan bilateral dengan Presiden Tiongkok Xi Jinping di sela-sela KTT G20 Bali. Pembahasan berfokus pada proyek strategis nasional infrastruktur kereta cepat, akselerasi transisi energi hijau, dan kerja sama perdagangan maritim."
+    },
+    prabowo: {
+      tag: "Era Prabowo",
+      title: "Penguatan Aliansi Strategis Global Baru",
+      meta: "2024 | Washington D.C., Amerika Serikat",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_kqk0LDKeWdaqfIz3HGBaMEJLwQaEUYOBKA&s",
+      desc: "Presiden Prabowo Subianto berdiskusi secara intensif dengan Presiden Joe Biden di Gedung Putih. Kunjungan diplomasi ini memperingati 75 tahun hubungan diplomatik, menegaskan posisi geopolitik bebas aktif Indonesia, keamanan siber, dan stabilitas kawasan Indo-Pasifik."
+    }
+  };
+
+  // Urutan foto untuk navigasi lightbox
+  const galleryOrder = ["sukarno", "suharto", "habibie", "gusdur", "megawati", "sby", "jokowi", "prabowo"];
+  let currentLightboxIndex = 0;
+
+  // DOM selectors: Panel kanan
+  const galleryItems = document.querySelectorAll(".gallery-item");
+  const panelTag = document.getElementById("gallery-president-tag");
+  const panelTitle = document.getElementById("gallery-title");
+  const panelMeta = document.getElementById("gallery-meta");
+  const panelImg = document.getElementById("gallery-preview-img");
+  const panelDesc = document.getElementById("gallery-description");
+
+  // DOM selectors: Lightbox
+  const lightboxOverlay = document.getElementById("gallery-lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const lightboxTag = document.getElementById("lightbox-tag");
+  const lightboxTitle = document.getElementById("lightbox-title");
+  const lightboxMeta = document.getElementById("lightbox-meta");
+  const lightboxDesc = document.getElementById("lightbox-desc");
+  const lightboxCounter = document.getElementById("lightbox-counter");
+  const btnLightboxClose = document.getElementById("btn-lightbox-close");
+  const btnLightboxPrev = document.getElementById("btn-lightbox-prev");
+  const btnLightboxNext = document.getElementById("btn-lightbox-next");
+  const btnFullscreenGallery = document.getElementById("btn-fullscreen-gallery");
+  const detailsZoomBox = document.getElementById("details-zoom-box");
+
+  // --- Fungsi: Update Panel Kanan ---
+  function updateGalleryPanel(id) {
+    const data = galleryData[id];
+    if (!data) return;
+
+    panelImg.style.opacity = "0";
+    setTimeout(() => {
+      panelTag.innerText = data.tag;
+      panelTitle.innerText = data.title;
+      panelMeta.innerHTML = `<i class="fa-solid fa-calendar-days"></i> ${data.meta}`;
+      panelImg.src = data.img;
+      panelImg.alt = data.title;
+      panelDesc.innerText = data.desc;
+      panelImg.style.opacity = "1";
+    }, 150);
+  }
+
+  // --- Fungsi: Buka Lightbox ---
+  function openLightbox(id) {
+    const data = galleryData[id];
+    if (!data || !lightboxOverlay) return;
+
+    currentLightboxIndex = galleryOrder.indexOf(id);
+    renderLightbox(currentLightboxIndex);
+    lightboxOverlay.classList.add("active");
+    document.body.style.overflow = "hidden"; // Cegah scroll background
+  }
+
+  // --- Fungsi: Render konten lightbox berdasarkan index ---
+  function renderLightbox(index) {
+    const id = galleryOrder[index];
+    const data = galleryData[id];
+    if (!data) return;
+
+    // Reset animasi dengan mengganti src
+    lightboxImg.style.opacity = "0";
+    setTimeout(() => {
+      lightboxImg.src = data.img;
+      lightboxImg.alt = data.title;
+      lightboxTag.innerText = data.tag;
+      lightboxTitle.innerText = data.title;
+      lightboxMeta.innerHTML = `<i class="fa-solid fa-calendar-days"></i> ${data.meta}`;
+      lightboxDesc.innerText = data.desc;
+      lightboxCounter.innerText = `${index + 1} / ${galleryOrder.length}`;
+      lightboxImg.style.opacity = "1";
+    }, 100);
+  }
+
+  // --- Fungsi: Tutup Lightbox ---
+  function closeLightbox() {
+    if (lightboxOverlay) {
+      lightboxOverlay.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  }
+
+  // --- Event: Klik item foto di grid → update panel kanan + highlight ---
+  galleryItems.forEach(item => {
+    item.addEventListener("click", (e) => {
+      // Jika yang diklik adalah tombol zoom, buka lightbox saja
+      if (e.target.closest(".gallery-zoom-btn")) return;
+
+      // Hapus kelas aktif dari semua item
+      document.querySelectorAll(".gallery-item").forEach(i => i.classList.remove("active"));
+      item.classList.add("active");
+
+      const dataId = item.getAttribute("data-id");
+      updateGalleryPanel(dataId);
+
+      // Auto scroll ke panel kanan saat di HP
+      if (window.innerWidth <= 992) {
+        const detailPanel = document.getElementById("gallery-details-panel");
+        if (detailPanel) {
+          detailPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }
+      }
+    });
+  });
+
+  // --- Event: Klik tombol zoom (icon kaca pembesar di pojok foto) → buka lightbox ---
+  document.querySelectorAll(".gallery-zoom-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation(); // Jangan trigger klik item induk
+      const dataId = btn.getAttribute("data-id");
+      openLightbox(dataId);
+    });
+  });
+
+  // --- Event: Klik area preview foto di panel kanan → buka lightbox ---
+  if (detailsZoomBox) {
+    detailsZoomBox.addEventListener("click", () => {
+      const activeItem = document.querySelector(".gallery-item.active");
+      if (activeItem) {
+        openLightbox(activeItem.getAttribute("data-id"));
+      }
+    });
+  }
+
+  // --- Event: Tombol fullscreen di panel kanan ---
+  if (btnFullscreenGallery) {
+    btnFullscreenGallery.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const activeItem = document.querySelector(".gallery-item.active");
+      if (activeItem) {
+        openLightbox(activeItem.getAttribute("data-id"));
+      }
+    });
+  }
+
+  // --- Event: Lightbox navigasi prev ---
+  if (btnLightboxPrev) {
+    btnLightboxPrev.addEventListener("click", () => {
+      currentLightboxIndex = (currentLightboxIndex - 1 + galleryOrder.length) % galleryOrder.length;
+      renderLightbox(currentLightboxIndex);
+    });
+  }
+
+  // --- Event: Lightbox navigasi next ---
+  if (btnLightboxNext) {
+    btnLightboxNext.addEventListener("click", () => {
+      currentLightboxIndex = (currentLightboxIndex + 1) % galleryOrder.length;
+      renderLightbox(currentLightboxIndex);
+    });
+  }
+
+  // --- Event: Tombol tutup lightbox ---
+  if (btnLightboxClose) {
+    btnLightboxClose.addEventListener("click", closeLightbox);
+  }
+
+  // --- Event: Klik di luar area lightbox inner → tutup ---
+  if (lightboxOverlay) {
+    lightboxOverlay.addEventListener("click", (e) => {
+      if (e.target === lightboxOverlay) closeLightbox();
+    });
+  }
+
+  // --- Event: Keyboard support (Escape = tutup, ← → = navigasi) ---
+  document.addEventListener("keydown", (e) => {
+    if (!lightboxOverlay || !lightboxOverlay.classList.contains("active")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") {
+      currentLightboxIndex = (currentLightboxIndex - 1 + galleryOrder.length) % galleryOrder.length;
+      renderLightbox(currentLightboxIndex);
+    }
+    if (e.key === "ArrowRight") {
+      currentLightboxIndex = (currentLightboxIndex + 1) % galleryOrder.length;
+      renderLightbox(currentLightboxIndex);
+    }
+  });
+
+  // --- Swipe support untuk HP ---
+  let touchStartX = 0;
+  if (lightboxOverlay) {
+    lightboxOverlay.addEventListener("touchstart", (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    lightboxOverlay.addEventListener("touchend", (e) => {
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(deltaX) > 50) {
+        if (deltaX < 0) {
+          // Swipe kiri → next
+          currentLightboxIndex = (currentLightboxIndex + 1) % galleryOrder.length;
+        } else {
+          // Swipe kanan → prev
+          currentLightboxIndex = (currentLightboxIndex - 1 + galleryOrder.length) % galleryOrder.length;
+        }
+        renderLightbox(currentLightboxIndex);
+      }
+    }, { passive: true });
+  }
+
+  // --- Event: Filter tombol era ---
+  const filterBtns = document.querySelectorAll(".gallery-filter-btn");
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.getAttribute("data-filter");
+      galleryItems.forEach(item => {
+        const era = item.getAttribute("data-era");
+        if (filter === "all" || era === filter) {
+          item.classList.remove("hidden");
+        } else {
+          item.classList.add("hidden");
+          item.classList.remove("active");
+        }
+      });
+
+      // Jika foto aktif tersembunyi, aktifkan foto pertama yang terlihat
+      const activeItem = document.querySelector(".gallery-item.active");
+      if (!activeItem || activeItem.classList.contains("hidden")) {
+        const firstVisible = document.querySelector(".gallery-item:not(.hidden)");
+        if (firstVisible) {
+          firstVisible.classList.add("active");
+          updateGalleryPanel(firstVisible.getAttribute("data-id"));
+        }
+      }
+    });
+  });
+
+  // Load konten default pertama kali (Sukarno)
+  updateGalleryPanel("sukarno");
 
 });
