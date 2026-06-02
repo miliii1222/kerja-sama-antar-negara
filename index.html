@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edukasi IPS: Kerja Sama Antar Negara</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Website edukasi interaktif materi IPS tentang Kerja Sama Antar Negara, mencakup pengertian, tujuan, bentuk, manfaat, dan contoh kerja sama global. Dilengkapi dengan peta interaktif LeafletJS dan kuis seru.">
+  <meta name="keywords"
+    content="kerja sama antar negara, IPS, edukasi, asean, pbb, peta interaktif, leafletjs, kuis ips">
+  <meta name="author" content="Tim Proyek IPAS">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- LeafletJS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+  <!-- ==========================================
+       HEADER & NAVBAR
+       ========================================== -->
+  <header class="glass" id="main-header">
+    <div class="container">
+      <a href="#beranda" class="logo" id="logo-nav">
+        <div class="logo-icon"><i class="fa-solid fa-earth-asia"></i></div>
+        <span>Edu</span>Negara
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="#beranda" class="nav-link active" id="link-beranda">Beranda</a></li>
+          <li><a href="#materi" class="nav-link" id="link-materi">Materi</a></li>
+          <li><a href="#interaktif" class="nav-link" id="link-interaktif">Peta & Timeline</a></li>
+          <li><a href="#tim" class="nav-link" id="link-tim">Profil Tim</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="user-menu-wrapper" id="user-menu-wrapper">
+          <button class="btn btn-secondary btn-login" id="btn-open-login" aria-label="Buka Modal Login">
+            <i class="fa-solid fa-right-to-bracket"></i> <span class="login-text">Login Siswa</span>
+          </button>
+          
+          <div class="dropdown-menu glass" id="user-dropdown">
+            <div class="dropdown-profile-info">
+              <div class="dropdown-avatar" id="dropdown-avatar-container"><i class="fa-solid fa-user"></i></div>
+              <div class="dropdown-user-details">
+                <span class="dropdown-label">Siswa Terverifikasi</span>
+                <span class="dropdown-name" id="dropdown-student-name">Nama Siswa</span>
+                <span class="dropdown-dob" id="dropdown-student-dob" style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 2px;"><i class="fa-solid fa-cake-candles" style="margin-right: 4px; font-size: 0.7rem;"></i> Tanggal Lahir</span>
+              </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a href="#zona-kuis" class="dropdown-item" id="dropdown-btn-quiz">
+              <i class="fa-solid fa-graduation-cap"></i> Zona Kuis Siswa
+            </a>
+            <button class="dropdown-item logout-item" id="dropdown-btn-logout">
+              <i class="fa-solid fa-right-from-bracket"></i> Keluar / Log Out
+            </button>
+          </div>
+        </div>
+        
+        <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Menu Navigasi">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         HERO SECTION / BERANDA
+         ========================================== -->
+    <section id="beranda" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fa-solid fa-graduation-cap"></i> Portal Edukasi IPS Interaktif
+          </div>
+          <h1>Membangun Dunia Melalui <span>Kerja Sama Antar Negara</span></h1>
+          <p class="hero-desc">
+            Temukan bagaimana negara-negara di dunia saling berinteraksi, berkolaborasi, dan bekerja sama dalam bidang
+            ekonomi, politik, sosial, dan budaya demi kesejahteraan bersama.
+          </p>
+          <div class="hero-buttons">
+            <a href="#materi" class="btn btn-primary" id="hero-btn-materi">
+              <i class="fa-solid fa-book-open"></i> Mulai Belajar
+            </a>
+            <a href="#tim" class="btn btn-secondary" id="hero-btn-tim">
+              <i class="fa-solid fa-users"></i> Kenali Tim Kami
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-val">193+</span>
+              <span class="stat-lbl">Negara PBB</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val">3+</span>
+              <span class="stat-lbl">Bentuk Kerja Sama</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-val">100%</span>
+              <span class="stat-lbl">Edukasi Gratis</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-card glass">
+            <div class="hero-card-icon">
+              <i class="fa-solid fa-handshake-angle"></i>
+            </div>
+            <h3>Kolaborasi Global</h3>
+            <p>Di era modern ini, tidak ada satu pun negara yang dapat hidup mandiri tanpa bantuan dan hubungan timbal
+              balik dengan negara lain.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         MATERI SECTION
+         ========================================== -->
+    <section id="materi" class="materi">
+      <div class="container">
+        <h2 class="section-title">Materi Pembelajaran</h2>
+        <p class="section-desc">Pahami konsep dasar, tujuan, bentuk, manfaat, serta analisis pentingnya kerja sama
+          internasional secara terstruktur.</p>
+
+        <div class="materi-tabs-container">
+          <div class="materi-tabs">
+            <button class="tab-btn active" data-tab="tab-pengertian">Pengertian & Tujuan</button>
+            <button class="tab-btn" data-tab="tab-bentuk">Bentuk & Manfaat</button>
+            <button class="tab-btn" data-tab="tab-contoh">Contoh & Analisis</button>
+          </div>
+        </div>
+
+        <!-- Tab 1: Pengertian & Tujuan -->
+        <div id="tab-pengertian" class="tab-content active">
+          <div class="materi-grid-2">
+            <div class="materi-card glass">
+              <div class="materi-card-icon"><i class="fa-solid fa-book"></i></div>
+              <h3>Pengertian Kerja Sama Antar Negara</h3>
+              <p>
+                <strong>Kerja sama antar negara</strong> adalah hubungan terstruktur yang dijalin oleh dua negara atau
+                lebih untuk mencapai tujuan bersama yang saling menguntungkan. Hubungan ini diatur dalam perjanjian
+                internasional dan didasarkan pada prinsip saling menghormati kedaulatan masing-masing.
+              </p>
+              <p style="margin-top: 1rem;">
+                Kerja sama ini muncul karena adanya perbedaan sumber daya alam, iklim, ilmu pengetahuan, teknologi,
+                serta kebutuhan masyarakat yang tidak bisa dipenuhi sendiri oleh suatu negara.
+              </p>
+            </div>
+
+            <div class="materi-infographic">
+              <div class="info-header">
+                <i class="fa-solid fa-bullseye"></i>
+                <h3>Tujuan Utama Kerja Sama</h3>
+              </div>
+              <div class="info-body">
+                <div class="info-row">
+                  <div class="info-num">1</div>
+                  <div class="info-text">
+                    <h4>Meningkatkan Perekonomian</h4>
+                    <p>Memperluas pasar ekspor, memperoleh investasi, dan mengamankan pasokan barang/jasa kebutuhan
+                      dalam negeri.</p>
+                  </div>
+                </div>
+                <div class="info-row">
+                  <div class="info-num">2</div>
+                  <div class="info-text">
+                    <h4>Menjaga Perdamaian & Keamanan</h4>
+                    <p>Mencegah konflik bersenjata, menyelesaikan sengketa wilayah secara damai, dan memerangi kejahatan
+                      lintas negara.</p>
+                  </div>
+                </div>
+                <div class="info-row">
+                  <div class="info-num">3</div>
+                  <div class="info-text">
+                    <h4>Transfer Ilmu & Teknologi</h4>
+                    <p>Saling bertukar teknologi terbaru, melatih tenaga ahli, serta meningkatkan kualitas pendidikan
+                      masyarakat.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Bentuk & Manfaat -->
+        <div id="tab-bentuk" class="tab-content">
+          <div class="materi-grid-2">
+            <div class="materi-card glass">
+              <div class="materi-card-icon"><i class="fa-solid fa-diagram-project"></i></div>
+              <h3>Bentuk-Bentuk Kerja Sama</h3>
+              <p>Berdasarkan jumlah negara peserta dan letak geografisnya, kerja sama dibagi menjadi:</p>
+              <ul class="materi-list">
+                <li><strong>Bilateral</strong>: Kerja sama antara 2 negara saja (Contoh: Hubungan dagang Indonesia -
+                  Australia).</li>
+                <li><strong>Regional</strong>: Kerja sama antar negara di kawasan geografis yang sama (Contoh: ASEAN di
+                  Asia Tenggara, Uni Eropa di Eropa).</li>
+                <li><strong>Multilateral</strong>: Kerja sama yang melibatkan banyak negara dari berbagai belahan dunia
+                  tanpa batasan wilayah (Contoh: PBB, IMF, WTO).</li>
+              </ul>
+            </div>
+
+            <div class="materi-card glass">
+              <div class="materi-card-icon"><i class="fa-solid fa-hand-holding-hand"></i></div>
+              <h3>Manfaat Nyata Bagi Negara</h3>
+              <p>Adanya hubungan internasional memberikan dampak positif yang masif bagi pembangunan bangsa:</p>
+              <ul class="materi-list">
+                <li><strong>Pertumbuhan Ekonomi</strong>: Membuka lapangan pekerjaan baru melalui investasi asing dan
+                  ekspor komoditas nasional.</li>
+                <li><strong>Stabilitas Sosial & Kesehatan</strong>: Kolaborasi penanganan wabah (seperti distribusi
+                  vaksin global) dan bantuan bencana alam.</li>
+                <li><strong>Ketahanan Lingkungan</strong>: Kesepakatan bersama mengatasi perubahan iklim global dan
+                  pelestarian hutan dunia.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Contoh & Analisis -->
+        <div id="tab-contoh" class="tab-content">
+          <div class="materi-grid-2">
+            <div class="materi-card glass">
+              <div class="materi-card-icon"><i class="fa-solid fa-flag"></i></div>
+              <h3>Contoh Nyata Kerja Sama</h3>
+              <p>Indonesia aktif berpartisipasi dalam berbagai kemitraan strategis global:</p>
+              <ul class="materi-list">
+                <li><strong>ASEAN (Association of Southeast Asian Nations)</strong>: Kolaborasi politik, ekonomi, dan
+                  keamanan regional Asia Tenggara.</li>
+                <li><strong>G20</strong>: Forum kerja sama ekonomi internasional beranggotakan 19 negara ekonomi utama
+                  dunia ditambah Uni Eropa dan Uni Afrika.</li>
+                <li><strong>Kerja Sama Indonesia - Jepang (IJEPA)</strong>: Perjanjian kemitraan ekonomi bilateral di
+                  bidang perdagangan bebas dan ketenagakerjaan.</li>
+              </ul>
+            </div>
+
+            <div class="materi-card glass" style="border-color: rgba(245, 158, 11, 0.25);">
+              <div class="materi-card-icon" style="color: var(--accent-gold); background: rgba(245, 158, 11, 0.1);"><i
+                  class="fa-solid fa-magnifying-glass-chart"></i></div>
+              <h3>Analisis: Mengapa Ini Penting?</h3>
+              <p>
+                <strong>Di era globalisasi yang saling terhubung (interconnected)</strong>, tidak ada satu pun negara
+                yang dapat sepenuhnya mandiri. Ancaman modern seperti perubahan iklim, krisis pangan, pandemi global,
+                dan ketegangan geopolitik tidak mengenal batas negara.
+              </p>
+              <p style="margin-top: 0.85rem; font-style: italic; color: var(--text-muted);">
+                Tanpa kerja sama internasional, sebuah negara akan terisolasi, mengalami ketertinggalan teknologi,
+                inflasi tinggi akibat kelangkaan barang, serta rentan terhadap krisis pertahanan dan keamanan global.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================
+         INTERACTIVE SECTION: PETA & TIMELINE
+         ========================================== -->
+    <section id="interaktif" class="interactive">
+      <div class="container">
+        <h2 class="section-title">Fitur Eksplorasi Interaktif</h2>
+        <p class="section-desc">Gunakan peta lokasi organisasi internasional untuk melacak pusat diplomasi dunia, atau
+          telusuri timeline sejarah kerja sama Indonesia.</p>
+
+        <div class="interactive-tabs">
+          <button class="btn btn-primary" id="btn-show-map"><i class="fa-solid fa-map-location-dot"></i> Peta Lokasi Hub
+            Global</button>
+          <button class="btn btn-secondary" id="btn-show-timeline"><i class="fa-solid fa-timeline"></i> Timeline
+            Sejarah</button>
+        </div>
+
+        <!-- Panel Peta Interaktif -->
+        <div id="panel-map" class="interactive-panel active">
+          <div class="map-container">
+            <div class="map-wrapper" id="leaflet-map">
+              <!-- Map rendered by JS -->
+            </div>
+            <div class="map-sidebar" id="map-sidebar-list">
+              <!-- Interactive list generated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel Timeline Interaktif -->
+        <div id="panel-timeline" class="interactive-panel">
+          <div class="timeline-wrapper">
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card glass">
+                <div class="timeline-year">1945</div>
+                <h4>Bergabung dengan PBB</h4>
+                <p>Indonesia resmi memproklamasikan kemerdekaan dan tak lama kemudian bergabung dengan Perserikatan
+                  Bangsa-Bangsa (PBB) sebagai anggota ke-60 untuk mendapatkan pengakuan kedaulatan internasional.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card glass">
+                <div class="timeline-year">1955</div>
+                <h4>Konferensi Asia Afrika (KAA)</h4>
+                <p>Penyelenggaraan KAA di Bandung, Jawa Barat. Menghasilkan Dasasila Bandung yang meletakkan dasar
+                  perdamaian dunia dan solidaritas negara-negara berkembang terjajah.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card glass">
+                <div class="timeline-year">1967</div>
+                <h4>Deklarasi Bangkok (ASEAN)</h4>
+                <p>Indonesia menjadi salah satu dari lima negara pendiri Asosiasi Negara-Negara Asia Tenggara (ASEAN)
+                  guna menciptakan kawasan yang stabil, damai, dan sejahtera.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-card glass">
+                <div class="timeline-year">2022</div>
+                <h4>Presidensi G20 Indonesia</h4>
+                <p>Indonesia memegang keketuaan G20 dengan mengusung tema "Recover Together, Recover Stronger" yang
+                  memandu arah pemulihan ekonomi dunia pasca pandemi COVID-19.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         EXCLUSIVE STUDENT ZONE (KUIS) - UNLOCKED AFTER LOGIN
+         ========================================== -->
+    <section id="zona-kuis" class="quiz-section">
+      <div class="container">
+        <div class="quiz-container glass">
+          <div class="quiz-header">
+            <h2
+              style="font-size: 1.6rem; color: var(--accent-emerald); display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-graduation-cap"></i> Zona Kuis Siswa
+            </h2>
+            <span class="badge badge-emerald" id="quiz-status">Terverifikasi</span>
+          </div>
+
+          <div class="quiz-progress-bar">
+            <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+          </div>
+
+          <!-- Box Pertanyaan -->
+          <div id="quiz-box" class="quiz-qbox">
+            <p class="quiz-question" id="quiz-question-text">Memuat pertanyaan...</p>
+            <div class="quiz-options" id="quiz-options-container">
+              <!-- Options rendered by JS -->
+            </div>
+          </div>
+
+          <div class="quiz-footer">
+            <button class="btn btn-primary" id="btn-next-question" style="display: none;">Pertanyaan Berikutnya <i
+                class="fa-solid fa-arrow-right"></i></button>
+          </div>
+
+          <!-- Box Hasil Kuis (Tersembunyi Awal) -->
+          <div id="quiz-result-box" class="quiz-result" style="display: none;">
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h3>Kuis Selesai!</h3>
+            <p id="quiz-result-desc">Selamat, Anda telah menyelesaikan kuis interaktif ini.</p>
+            <div class="result-score" id="quiz-score-val">80/100</div>
+            <div class="quiz-result-actions" style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+              <button class="btn btn-primary" id="btn-restart-quiz"><i class="fa-solid fa-rotate-left"></i> Ulangi Kuis</button>
+              <button class="btn btn-gold" id="btn-claim-reward" style="display: none;"><i class="fa-solid fa-gift"></i> Lihat Hadiah Anda!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         PROFIL TIM SECTION
+         ========================================== -->
+    <section id="tim" class="tim">
+      <div class="container">
+        <h2 class="section-title">Profil Tim Kami</h2>
+        <p class="section-desc">Kenali anggota kelompok kami yang bekerja sama menyusun materi, mendesain, dan membangun
+          platform pembelajaran ini.</p>
+
+        <div class="tim-grid">
+
+          <!-- Anggota 1: Azmi -->
+          <div class="tim-card glass">
+            <div class="tim-avatar-wrapper">
+              <img src="assets/avatar_azmi.png" alt="Azmi Fauzan D" class="tim-avatar">
+            </div>
+            <h3>Azmi Fauzan D</h3>
+            <div class="tim-role">Ketua Tim</div>
+            <p class="tim-desc">Bertanggung jawab atas pengarahan konten pembelajaran, koordinasi anggota, serta
+              penyelarasan materi utama.</p>
+            <div class="tim-socials">
+              <a href="#" class="social-link" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Anggota 2: Genta -->
+          <div class="tim-card glass">
+            <div class="tim-avatar-wrapper">
+              <img src="assets/avatar_genta.png" alt="Genta Permana U" class="tim-avatar">
+            </div>
+            <h3>Genta Permana U</h3>
+            <div class="tim-role">Frontend Developer</div>
+            <p class="tim-desc">Bertanggung jawab Menyusun ui web, struktur halaman, dan mengintegrasikan stylesheet
+              css.</p>
+            <div class="tim-socials">
+              <a href="#" class="social-link" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Anggota 3: Mahardika -->
+          <div class="tim-card glass">
+            <div class="tim-avatar-wrapper">
+              <img src="assets/avatar_mahardika.png" alt="Mahardika M" class="tim-avatar">
+            </div>
+            <h3>Mahardika M</h3>
+            <div class="tim-role">Desainer UI/UX</div>
+            <p class="tim-desc">Bertanggung jawab atas riset palet warna, desain layout yang nyaman, serta estetika
+              visual web.</p>
+            <div class="tim-socials">
+              <a href="#" class="social-link" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Anggota 4: M Revi -->
+          <div class="tim-card glass">
+            <div class="tim-avatar-wrapper">
+              <img src="assets/avatar_revi.png" alt="M Revi" class="tim-avatar">
+            </div>
+            <h3>M Revi</h3>
+            <div class="tim-role">Penyusun Materi</div>
+            <p class="tim-desc">Bertanggung jawab melakukan riset data, menyusun konten penjelasan, serta mengumpulkan
+              referensi sumber resmi.</p>
+            <div class="tim-socials">
+              <a href="#" class="social-link" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Anggota 5: Rizki -->
+          <div class="tim-card glass">
+            <div class="tim-avatar-wrapper">
+              <img src="assets/avatar_rizki.png" alt="Rizki Hidayat" class="tim-avatar">
+            </div>
+            <h3>Rizki Hidayat</h3>
+            <div class="tim-role">Dokumentasi & QA</div>
+            <p class="tim-desc">Bertanggung jawab melakukan pengujian fungsionalitas tombol, dokumentasi tugas, serta
+              penyuntingan akhir.</p>
+            <div class="tim-socials">
+              <a href="#" class="social-link" aria-label="Github"><i class="fa-brands fa-github"></i></a>
+              <a href="#" class="social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       SIMULATED LOGIN MODAL
+       ========================================== -->
+  <div class="modal-overlay" id="login-modal-overlay">
+    <div class="modal-card glass">
+      <button class="modal-close" id="btn-close-login" aria-label="Tutup Modal Login"><i
+          class="fa-solid fa-xmark"></i></button>
+
+      <!-- Tahap 1: Formulir Pengisian Nama -->
+      <div class="modal-stage active" id="modal-stage-form">
+        <div class="modal-icon"><i class="fa-solid fa-user-lock"></i></div>
+        <h3>Simulasi Login Siswa</h3>
+        <p>Gunakan nama Anda untuk mengakses Zona Kuis tambahan sebagai latihan pemahaman.</p>
+
+        <div class="form-group">
+          <label class="form-label" for="student-name">Nama Lengkap Siswa</label>
+          <input type="text" class="form-input" id="student-name" placeholder="Masukkan nama Anda..."
+            autocomplete="off">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="student-dob">Tanggal Lahir Siswa</label>
+          <input type="date" class="form-input" id="student-dob" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Pilih Avatar Siswa</label>
+          <div class="avatar-select-group">
+            <label class="avatar-option active" id="avatar-option-male">
+              <input type="radio" name="student-avatar" id="avatar-male-input" value="assets/avatar_male.svg" checked style="display:none;">
+              <img src="assets/avatar_male.svg" alt="Laki-laki" class="avatar-select-img">
+              <span>Laki-laki</span>
+            </label>
+            <label class="avatar-option" id="avatar-option-female">
+              <input type="radio" name="student-avatar" id="avatar-female-input" value="assets/avatar_female.svg" style="display:none;">
+              <img src="assets/avatar_female.svg" alt="Perempuan" class="avatar-select-img">
+              <span>Perempuan</span>
+            </label>
+          </div>
+        </div>
+ 
+        <button class="btn btn-primary" id="btn-verify-login" style="width: 100%;">
+          Verifikasi Identitas <span class="spinner"></span>
+        </button>
+      </div>
+
+      <!-- Tahap 2: Pesan Sukses Login -->
+      <div class="modal-stage" id="modal-stage-success">
+        <div class="success-avatar-wrapper">
+          <img src="assets/avatar_male.svg" id="success-student-avatar" alt="Avatar" class="success-student-avatar">
+          <div class="success-badge-icon"><i class="fa-solid fa-circle-check"></i></div>
+        </div>
+        <h3>Login Sukses!</h3>
+        <p id="success-welcome-message">Selamat belajar, Siswa!</p>
+        <p style="font-size: 0.85rem; color: var(--accent-emerald); margin-bottom: 2rem;">
+          <i class="fa-solid fa-unlock-keyhole"></i> Zona Kuis Siswa di halaman beranda telah terbuka!
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <button class="btn btn-primary" id="btn-go-quiz" style="width: 100%;">
+            <i class="fa-solid fa-graduation-cap"></i> Mulai Kuis Interaktif
+          </button>
+          <button class="btn btn-secondary" id="btn-modal-back-home" style="width: 100%;">
+            <i class="fa-solid fa-house"></i> Kembali ke Beranda
+          </button>
+          <button class="btn btn-secondary btn-modal-logout" id="btn-modal-logout" style="width: 100%;">
+            <i class="fa-solid fa-right-from-bracket"></i> Keluar / Log Out
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================
+       FOOTER & CREDIT SOURCES
+       ========================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-info">
+          <h3 class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-earth-asia"></i></div><span>Edu</span>Negara
+          </h3>
+          <p>Portal edukasi interaktif tentang pentingnya hubungan internasional, geopolitik, dan kolaborasi ekonomi
+            antar negara demi perdamaian dunia.</p>
+        </div>
+
+        <div class="footer-links">
+          <h4>Navigasi Cepat</h4>
+          <div class="footer-links-grid">
+            <a href="#beranda"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem; margin-right:5px;"></i>
+              Beranda</a>
+            <a href="#materi"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem; margin-right:5px;"></i>
+              Materi</a>
+            <a href="#interaktif"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem; margin-right:5px;"></i>
+              Peta & Timeline</a>
+            <a href="#tim"><i class="fa-solid fa-chevron-right" style="font-size:0.7rem; margin-right:5px;"></i> Profil
+              Tim</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-sumber">
+          <strong>Sumber Data & Referensi:</strong> BPS Kota Bandung 2024, BMKG, Google Earth, Pikiran Rakyat, dan
+          sumber resmi lainnya.
+        </div>
+        <div class="copyright">
+          &copy; 2026 Proyek IPAS. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Kembali ke Beranda / Back to Top -->
+  <a href="#beranda" class="back-to-top" id="btn-back-to-top" aria-label="Kembali ke Beranda">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+  <!-- ==========================================
+       SPECIAL REWARD MODAL (HADIAH KUIS TIKET)
+       ========================================== -->
+  <div class="modal-overlay" id="reward-modal-overlay">
+    <div class="modal-card glass reward-modal-card">
+      <button class="modal-close" id="btn-close-reward" aria-label="Tutup Hadiah"><i class="fa-solid fa-xmark"></i></button>
+      
+      <!-- TAHAP 1: PEMILIHAN NEGARA (Default Aktif) -->
+      <div id="reward-stage-selection" class="reward-stage active">
+        <div class="reward-header">
+          <div class="reward-badge-icon"><i class="fa-solid fa-plane-departure"></i></div>
+          <h3>Pilih Destinasi Penerbangan Anda 🌍✈️</h3>
+          <p>Selamat! Anda berhak mendapatkan 1 Tiket Penerbangan Kelas Eksekutif. Silakan pilih salah satu negara destinasi tujuan Anda:</p>
+        </div>
+        
+        <div class="region-select-grid">
+          <button class="region-card glass" onclick="selectFlightCountry('Jepang')">
+            <div class="region-card-icon"><i class="fa-solid fa-torii-gate"></i></div>
+            <div class="region-card-info">
+              <h4>Jepang 🇯🇵</h4>
+              <p>Terbang ke Tokyo (NRT)</p>
+            </div>
+          </button>
+          
+          <button class="region-card glass" onclick="selectFlightCountry('Korea')">
+            <div class="region-card-icon"><i class="fa-solid fa-archway"></i></div>
+            <div class="region-card-info">
+              <h4>Korea 🇰🇷</h4>
+              <p>Terbang ke Seoul (ICN)</p>
+            </div>
+          </button>
+          
+          <button class="region-card glass" onclick="selectFlightCountry('Inggris')">
+            <div class="region-card-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="region-card-info">
+              <h4>Inggris 🇬🇧</h4>
+              <p>Terbang ke London (LHR)</p>
+            </div>
+          </button>
+          
+          <button class="region-card glass" onclick="selectFlightCountry('Arab Saudi')">
+            <div class="region-card-icon"><i class="fa-solid fa-mosque"></i></div>
+            <div class="region-card-info">
+              <h4>Arab Saudi 🇸🇦</h4>
+              <p>Terbang ke Makkah (JED)</p>
+            </div>
+          </button>
+          
+          <button class="region-card glass" onclick="selectFlightCountry('Spanyol')">
+            <div class="region-card-icon"><i class="fa-solid fa-guitar"></i></div>
+            <div class="region-card-info">
+              <h4>Spanyol 🇪🇸</h4>
+              <p>Terbang ke Barcelona (BCN)</p>
+            </div>
+          </button>
+          
+          <button class="region-card glass" onclick="selectFlightCountry('Kamboja')">
+            <div class="region-card-icon"><i class="fa-solid fa-monument"></i></div>
+            <div class="region-card-info">
+              <h4>Kamboja 🇰🇭</h4>
+              <p>Terbang ke Siem Reap (REP)</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- TAHAP 2: TAMPILAN TIKET (Tersembunyi Awal) -->
+      <div id="reward-stage-ticket" class="reward-stage" style="display: none;">
+        <div class="reward-header">
+          <div class="reward-badge-icon"><i class="fa-solid fa-plane-departure"></i></div>
+          <h3>Tiket Penerbangan Anda Telah Terbit! 🎫✨</h3>
+          <p>Gunakan tiket kelas bisnis ini untuk memulai penjelajahan edukasi Anda. Detail boarding pass eksekutif:</p>
+        </div>
+        
+        <!-- Main Flight Ticket Boarding Pass -->
+        <div class="ticket-container" id="boarding-pass-card">
+          <!-- Rendered dynamically by JS -->
+        </div>
+
+        <div class="reward-footer" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+          <button class="btn btn-secondary" id="btn-change-region" style="flex: 1; min-width: 180px;">
+            <i class="fa-solid fa-earth-asia"></i> Pilih Negara Lain
+          </button>
+          <button class="btn btn-primary" id="btn-reward-back-home" style="flex: 1; min-width: 180px;">
+            <i class="fa-solid fa-house"></i> Kembali ke Beranda
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- LeafletJS JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Custom JS -->
+  <script src="app.js"></script>
+</body>
+
+</html>
